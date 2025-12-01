@@ -11,10 +11,14 @@ public record OrderEntity(
         long quantity,
         long price,
         TimeInForce timeInForce,
-        OrderStatus status
+        OrderStatus status,
+        String reserveId
 ) {
-    public static OrderEntity from() {
-        return null;
+    public static OrderEntity from(long orderId, long accountId, String symbol, Side side,
+                                   OrderType orderType, long quantity, long price, TimeInForce timeInForce,
+                                   String reserveId) {
+        return new OrderEntity(orderId, accountId, symbol, side, orderType, quantity, price,
+                timeInForce, OrderStatus.RECEIVED, reserveId);
     }
 
     public byte[] serializeForOutbox() {
